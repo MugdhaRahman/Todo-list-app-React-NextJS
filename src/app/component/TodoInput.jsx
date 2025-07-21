@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-export default function TodoInput({ onAdd, total, onComplete }) {
+export default function TodoInput({ onAdd, progress }) {
   const [input, setInput] = useState('');
 
   const handleSubmit = (e) => {
@@ -13,23 +13,20 @@ export default function TodoInput({ onAdd, total, onComplete }) {
     setInput('');
   };
 
-  const percentage = total === 0 ? 0 : Math.round((5 / 10) * 100);
-
-
   return (
 
     <div>
       <div className="progressbar-horizontal mb-[40px] mr-[56px] ml-[56px] "
         style={{
-          background: `linear-gradient(to right, #0070f3 ${percentage}%, #272727 ${percentage}%)`
+          background: `linear-gradient(to right, #0070f3 ${progress}%, #272727 ${progress}%)`
         }}
       >
         <div
           className="progressbar-horizontal__fill"
-          style={{ width: `${percentage}%` }}
+          style={{ width: `${progress}%` }}
         ></div>
         <span className="progressbar-horizontal__text">
-          {percentage.toFixed(0)}% Completed
+          {progress.toFixed(0)}% Completed
         </span>
       </div>
 

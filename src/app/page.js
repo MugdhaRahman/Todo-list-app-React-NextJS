@@ -8,6 +8,7 @@ import Footer from "./component/Footer";
 
 export default function Home() {
   const [todos, setTodos] = useState([]);
+  const [progress, setProgress] = useState(0)
 
   useEffect(() => {
     const stored = localStorage.getItem("todos");
@@ -18,7 +19,22 @@ export default function Home() {
 
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
+    calculateProgress(todos)
   }, [todos]);
+
+  const completedTodos = (todos) => {
+      return todos.filter(el => el.completed)
+  }
+
+  const calculateProgress = (todos)=> {
+    const data = completedTodos(todos)
+
+    const total = todos.length
+    const completed = data.length
+
+    const percentage = completed < 1 ? 0 : Math.round((completed /total) * 100);
+    setProgress(percentage)
+  }
 
 
   const handleAddTodo = (text) => {
@@ -38,6 +54,8 @@ export default function Home() {
     );
   };
 
+
+
   const handleDeleteTodo = (id) => {
     setTodos((prev) => prev.filter((todo) => todo.id !== id));
   };
@@ -47,8 +65,7 @@ export default function Home() {
       <Nav />
       <TodoInput
         onAdd={handleAddTodo}
-        total={todos.length}
-        completed={todos.filter((todo) => todo.completed).length}
+        progress={progress}
       />
       <TodoList
         todos={todos}
