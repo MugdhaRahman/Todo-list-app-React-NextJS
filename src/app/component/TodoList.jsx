@@ -27,10 +27,10 @@ export default function TodoList({ todos, onToggle, onDelete }) {
                     <button
                         key={type}
                         onClick={() => setFilter(type)}
-                        className={`px-4 py-2 rounded-md text-sm capitalize transition border
+                        className={`px-4 py-2 rounded-md text-sm shadow-md capitalize transition border
                             ${filter === type
                                 ? 'bg-primary text-white border-primary'
-                                : 'text-gray-400 border-gray-600 hover:bg-gray-800'}`}
+                                : 'text-gray-400 border-gray-600 shadow-md hover:bg-gray-800 hover:transition-transform duration-300'}`}
                     >
                         {type}
                     </button>
@@ -42,7 +42,7 @@ export default function TodoList({ todos, onToggle, onDelete }) {
                 {filteredTodos.map((todo) => (
                     <li
                         key={todo.id}
-                        className="flex items-center justify-between bg-dark-bg p-4 rounded shadow"
+                        className="flex items-center justify-between bg-card-bg p-4 shadow-md hover:transition-transform duration-300"
                     >
                         <label className="flex items-center space-x-3 flex-1 cursor-pointer">
                             <input

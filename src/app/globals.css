@@ -7,7 +7,22 @@
   --secondary: #066aab;
   --danger: #e00;
   --success: #007a33;
-  --dark-bg: #272727;
+  --card-bg: rgb(230 247 255);
+  --btn: #e6f1fe;
+  --light-primary-bg: #b5d7ff;
+  --light: #b5d7ff;
+}
+
+:root.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --primary: #0070f3;
+  --secondary: #066aab;
+  --danger: #e00;
+  --success: #007a33;
+  --btn: #e6f1fe;
+  --card-bg: #272727;
+  --light-primary-bg: #b5d7ff;
 }
 
 @theme inline {
@@ -16,23 +31,20 @@
   --color-primary: var(--primary);
   --color-danger: var(--danger);
   --color-success: var(--success);
-  --color-dark-bg: var(--dark-bg);
+  --color-card-bg: var(--card-bg);
   --color-secondary: var(--secondary);
+  --color-light-primary-bg: var(--light-primary-bg);
+  --color-btn: var(--btn);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 .progressbar-horizontal {
