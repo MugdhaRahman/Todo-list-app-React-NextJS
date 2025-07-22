@@ -35,9 +35,6 @@ export default function TodoInput({ onAdd, progress }) {
         </span>
       </div>
 
-
-
-
       <form onSubmit={handleSubmit} className="flex items-center gap-4 w-full max-w-xl mx-auto my-6">
         <input
           ref={inputRef}

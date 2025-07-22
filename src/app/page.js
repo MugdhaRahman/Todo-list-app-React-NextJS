@@ -5,10 +5,11 @@ import TodoInput from "./component/TodoInput";
 import Nav from "./component/Nav";
 import TodoList from "./component/TodoList";
 import Footer from "./component/Footer";
+import SignIn from "./component/SignIn";
 
 export default function Home() {
   const [todos, setTodos] = useState([]);
-  const [progress, setProgress] = useState(0)
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     const stored = localStorage.getItem("todos");
@@ -19,23 +20,23 @@ export default function Home() {
 
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
-    calculateProgress(todos)
+    calculateProgress(todos);
   }, [todos]);
 
   const completedTodos = (todos) => {
-      return todos.filter(el => el.completed)
-  }
+    return todos.filter((el) => el.completed);
+  };
 
-  const calculateProgress = (todos)=> {
-    const data = completedTodos(todos)
+  const calculateProgress = (todos) => {
+    const data = completedTodos(todos);
 
-    const total = todos.length
-    const completed = data.length
+    const total = todos.length;
+    const completed = data.length;
 
-    const percentage = completed < 1 ? 0 : Math.round((completed /total) * 100);
-    setProgress(percentage)
-  }
-
+    const percentage =
+      completed < 1 ? 0 : Math.round((completed / total) * 100);
+    setProgress(percentage);
+  };
 
   const handleAddTodo = (text) => {
     const newTodo = {
@@ -54,8 +55,6 @@ export default function Home() {
     );
   };
 
-
-
   const handleDeleteTodo = (id) => {
     setTodos((prev) => prev.filter((todo) => todo.id !== id));
   };
@@ -63,7 +62,7 @@ export default function Home() {
   return (
     <>
       <Nav />
-      <TodoInput
+      {/* <TodoInput
         onAdd={handleAddTodo}
         progress={progress}
       />
@@ -71,7 +70,10 @@ export default function Home() {
         todos={todos}
         onToggle={handleToggleTodo}
         onDelete={handleDeleteTodo}
-      />
+      /> */}
+
+      <SignIn />
+
       <Footer />
     </>
   );
