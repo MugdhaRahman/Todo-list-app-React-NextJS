@@ -1,6 +1,5 @@
 'use client';
-import { useState } from 'react'; // ✅ Add this line
-
+import { useState } from 'react';
 export default function TodoList({ todos, onToggle, onDelete }) {
     if (todos.length === 0) {
         return <p className="text-center mb-10 text-gray-500 mt-6">No todos yet!</p>;
@@ -14,8 +13,6 @@ export default function TodoList({ todos, onToggle, onDelete }) {
         if (filter === 'completed') return todo.completed;
         return true;
     });
-
-
 
     return (
 

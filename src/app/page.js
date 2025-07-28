@@ -6,6 +6,7 @@ import Nav from "./component/Nav";
 import TodoList from "./component/TodoList";
 import Footer from "./component/Footer";
 import SignIn from "./component/SignIn";
+import TestApi from "./component/TestApi";
 
 export default function Home() {
   const [todos, setTodos] = useState([]);
@@ -62,7 +63,7 @@ export default function Home() {
   return (
     <>
       <Nav />
-      {/* <TodoInput
+      <TodoInput
         onAdd={handleAddTodo}
         progress={progress}
       />
@@ -70,9 +71,11 @@ export default function Home() {
         todos={todos}
         onToggle={handleToggleTodo}
         onDelete={handleDeleteTodo}
-      /> */}
+      />
 
-      <SignIn />
+      {/* <SignIn /> */}
+
+      {/* <TestApi /> */}
 
       <Footer />
     </>

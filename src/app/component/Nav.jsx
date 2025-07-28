@@ -1,4 +1,5 @@
 import { useTheme } from "@/context/ThemeContext"
+import StarBorder from "./StarBorder";
 
 export default function NaV() {
 
@@ -81,11 +82,21 @@ export default function NaV() {
             Sign In
           </button>
 
-          <button
-            className=" border-[1px] rounded-[6px] mr-6 ml-4 text-white text-[14px] font-semibold px-2 py-1 hover:text-btn hover:transition-transform duration-300"
+          <StarBorder
+            as="button"
+            className="bg-transparent mr-2.5 ml-2.5"
+            color="white"
+            speed="5s"
+            thickness={2}
           >
-            Sign Up
-          </button>
+            <span className="text-white text-sm font-medium">Sign Up</span>
+
+          </StarBorder>
+
+
+
+
+
 
           <button onClick={toggleTheme} className="flex items-center rounded-2xl px-2 py-1 gap-2 transition-transform duration-300 hover:scale-110">
             {theme === 'light' ? (

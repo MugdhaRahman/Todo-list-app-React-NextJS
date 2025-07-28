@@ -40,6 +40,8 @@
   --font-mono: var(--font-geist-mono);
 }
 
+ 
+
 body {
   background: var(--background);
   color: var(--foreground);
@@ -106,5 +108,39 @@ body {
     inset 0 0 20px 10px rgba(255, 255, 255, 1);
   position: relative;
   overflow: hidden;
+}
+
+
+
+@layer utilities {
+  @keyframes star-movement-bottom {
+    0% {
+      transform: translate(0%, 0%);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(-100%, 0%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes star-movement-top {
+    0% {
+      transform: translate(0%, 0%);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(100%, 0%);
+      opacity: 0;
+    }
+  }
+
+  .animate-star-movement-bottom {
+    animation: star-movement-bottom 6s linear infinite alternate;
+  }
+
+  .animate-star-movement-top {
+    animation: star-movement-top 6s linear infinite alternate;
+  }
 }
 
