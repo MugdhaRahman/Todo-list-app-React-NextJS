@@ -46,7 +46,7 @@ export default function TodoInput({ onAdd, progress }) {
         />
         <button
           type="submit"
-          className="bg-primary text-white px-4 py-2 rounded-lg hover:bg-secondary transition"
+          className="bg-primary text-white px-4 py-2 cursor-pointer rounded-lg hover:bg-secondary transition"
         >
           Add
         </button>

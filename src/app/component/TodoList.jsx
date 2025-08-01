@@ -24,7 +24,7 @@ export default function TodoList({ todos, onToggle, onDelete }) {
                     <button
                         key={type}
                         onClick={() => setFilter(type)}
-                        className={`px-4 py-2 rounded-md text-sm shadow-md capitalize transition border
+                        className={`px-4 py-2 rounded-md cursor-pointer text-sm shadow-md capitalize transition border
                             ${filter === type
                                 ? 'bg-primary text-white border-primary'
                                 : 'text-gray-400 border-gray-600 shadow-md hover:bg-gray-800 hover:transition-transform duration-300'}`}
@@ -46,7 +46,7 @@ export default function TodoList({ todos, onToggle, onDelete }) {
                                 type="checkbox"
                                 checked={todo.completed}
                                 onChange={() => onToggle(todo.id)}
-                                className="w-5 h-5 text-primary bg-gray-100 border-gray-300 rounded focus:secondary"
+                                className="w-5 h-5 text-primary cursor-pointer bg-gray-100 border-gray-300 rounded focus:secondary"
                             />
 
 
@@ -82,7 +82,7 @@ export default function TodoList({ todos, onToggle, onDelete }) {
 
                         <button
                             onClick={() => onDelete(todo.id)}
-                            className="text-[12px] text-danger font-semibold border-1 border-danger rounded-[8px] px-4 py-1.5 hover:text-white hover:bg-red-500 transition"
+                            className="text-[12px] text-danger font-semibold border-1 border-danger cursor-pointer rounded-[8px] px-4 py-1.5 hover:text-white hover:bg-red-500 transition"
                         >
                             Delete
                         </button>

@@ -1,8 +1,7 @@
 import { useTheme } from "@/context/ThemeContext"
 import StarBorder from "./StarBorder";
 
-export default function NaV() {
-
+export default function Nav({ onSignUpClick, onSignInClick, onLogoClick }) {
   const { theme, toggleTheme } = useTheme();
 
   return (
@@ -10,7 +9,10 @@ export default function NaV() {
     <div className="bg-linear-to-t from-background to-primary">
       <div className="flex flex-row items-center mt-5 mr-[56px] mb-[40px] ml-[56px] ">
 
-        <svg width="185" height="39" viewBox="0 0 185 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="185" height="39" viewBox="0 0 185 39" fill="none" xmlns="http://www.w3.org/2000/svg"
+          onClick={onLogoClick}
+          className="cursor-pointer"
+        >
           <path d="M34.57 9.07982C32.9264 6.15569 30.428 3.80392 27.41 2.33982C23.9469 0.704072 20.1487 -0.0973547 16.32 -0.00017549H8.52001C7.38511 -0.0681346 6.24796 0.0885637 5.17374 0.460937C4.09952 0.83331 3.10935 1.41404 2.26001 2.16982C1.47965 2.96928 0.875398 3.92332 0.486152 4.9705C0.0969066 6.01767 -0.0686973 7.13476 5.84964e-06 8.24982V30.5298C-0.0691146 31.6758 0.103488 32.8236 0.506614 33.8986C0.90974 34.9736 1.53438 35.9518 2.34001 36.7698C4.15124 38.3487 6.51188 39.15 8.91001 38.9998H16.32C20.1556 39.1018 23.9624 38.311 27.44 36.6898C30.4445 35.2409 32.9329 32.9061 34.57 29.9998C36.2938 26.796 37.1488 23.1966 37.05 19.5598C37.1451 15.9106 36.2906 12.2993 34.57 9.07982Z" fill="white" />
           <path d="M28.28 13.5699C28.1171 11.4323 27.157 9.43381 25.5901 7.97062C24.0232 6.50743 21.9638 5.68629 19.82 5.66992H14.29C12.8233 5.66992 11.4168 6.25255 10.3797 7.28962C9.3426 8.3267 8.75998 9.73327 8.75998 11.1999H19.83C20.2131 11.2 20.592 11.2795 20.9428 11.4335C21.2936 11.5875 21.6087 11.8125 21.8681 12.0945C22.1275 12.3764 22.3255 12.7091 22.4498 13.0715C22.5741 13.4339 22.6218 13.8181 22.59 14.1999C22.5269 14.9116 22.1971 15.573 21.6666 16.0515C21.1362 16.5301 20.4443 16.7903 19.73 16.7799H8.72998V22.3199H19.83C20.2086 22.3205 20.583 22.3987 20.9302 22.5496C21.2774 22.7005 21.5899 22.921 21.8486 23.1975C22.1072 23.4739 22.3065 23.8004 22.434 24.1569C22.5615 24.5133 22.6146 24.8921 22.59 25.2699C22.5247 25.9807 22.1942 26.6408 21.6642 27.1189C21.1342 27.5969 20.4437 27.8579 19.73 27.8499H8.72998C8.72998 29.3166 9.3126 30.7231 10.3497 31.7602C11.3868 32.7973 12.7933 33.3799 14.26 33.3799H19.79C21.9338 33.3636 23.9932 32.5424 25.5601 31.0792C27.127 29.616 28.0871 27.6176 28.25 25.4799C28.3483 23.5003 27.7306 21.5515 26.51 19.9899C26.4127 19.8639 26.3599 19.7091 26.3599 19.5499C26.3599 19.3907 26.4127 19.236 26.51 19.1099C27.7529 17.5393 28.382 15.5702 28.28 13.5699Z" fill="url(#paint0_linear_3064_1113)" />
           <path d="M14.29 16.7299H8.76001V11.1999C8.76001 9.73327 9.34263 8.3267 10.3797 7.28962C11.4168 6.25255 12.8234 5.66992 14.29 5.66992V16.7299Z" fill="url(#paint1_linear_3064_1113)" />
@@ -77,17 +79,20 @@ export default function NaV() {
         <div className="flex items-center ms-auto me-2">
 
           <button
-            className="  text-white text-[14px] font-semibold px-3 py-2 hover:text-btn hover:transition-transform duration-300"
+
+            onClick={onSignInClick}
+            className="  text-white text-[14px] font-semibold px-3 py-2 cursor-pointer hover:text-btn hover:transition-transform duration-300"
           >
             Sign In
           </button>
 
           <StarBorder
             as="button"
-            className="bg-transparent mr-2.5 ml-2.5"
+            className="bg-transparent mr-2.5 ml-2.5 cursor-pointer hover:transition-transform duration-300"
             color="white"
             speed="5s"
             thickness={2}
+            onClick={onSignUpClick}
           >
             <span className="text-white text-sm font-medium">Sign Up</span>
 
@@ -98,7 +103,7 @@ export default function NaV() {
 
 
 
-          <button onClick={toggleTheme} className="flex items-center rounded-2xl px-2 py-1 gap-2 transition-transform duration-300 hover:scale-110">
+          <button onClick={toggleTheme} className=" cursor-pointer flex items-center rounded-2xl px-2 py-1 gap-2 transition-transform duration-300 hover:scale-110">
             {theme === 'light' ? (
               <>
                 <img src="/themedark.svg" alt="Light Mode" className="w-5 h-5 transition-transform duration-300" />

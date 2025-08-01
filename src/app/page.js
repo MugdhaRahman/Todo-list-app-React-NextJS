@@ -5,12 +5,13 @@ import TodoInput from "./component/TodoInput";
 import Nav from "./component/Nav";
 import TodoList from "./component/TodoList";
 import Footer from "./component/Footer";
+import SignUp from "./component/SignUp";
 import SignIn from "./component/SignIn";
-import TestApi from "./component/TestApi";
 
 export default function Home() {
   const [todos, setTodos] = useState([]);
   const [progress, setProgress] = useState(0);
+  const [view, setView] = useState("todo"); // Track current view: todo, signUp, or signIn
 
   useEffect(() => {
     const stored = localStorage.getItem("todos");
@@ -30,10 +31,8 @@ export default function Home() {
 
   const calculateProgress = (todos) => {
     const data = completedTodos(todos);
-
     const total = todos.length;
     const completed = data.length;
-
     const percentage =
       completed < 1 ? 0 : Math.round((completed / total) * 100);
     setProgress(percentage);
@@ -60,23 +59,31 @@ export default function Home() {
     setTodos((prev) => prev.filter((todo) => todo.id !== id));
   };
 
+  const handleShowSignUp = () => setView("signUp");
+  const handleShowSignIn = () => setView("signIn"); // New function for SignIn
+  const handleShowHome = () => setView("todo");
+
   return (
     <>
-      <Nav />
-      <TodoInput
-        onAdd={handleAddTodo}
-        progress={progress}
+      <Nav
+        onSignUpClick={handleShowSignUp}
+        onSignInClick={handleShowSignIn} // Pass new callback
+        onLogoClick={handleShowHome}
       />
-      <TodoList
-        todos={todos}
-        onToggle={handleToggleTodo}
-        onDelete={handleDeleteTodo}
-      />
-
-      {/* <SignIn /> */}
-
-      {/* <TestApi /> */}
-
+      {view === "signUp" ? (
+        <SignUp />
+      ) : view === "signIn" ? (
+        <SignIn />
+      ) : (
+        <>
+          <TodoInput onAdd={handleAddTodo} progress={progress} />
+          <TodoList
+            todos={todos}
+            onToggle={handleToggleTodo}
+            onDelete={handleDeleteTodo}
+          />
+        </>
+      )}
       <Footer />
     </>
   );
