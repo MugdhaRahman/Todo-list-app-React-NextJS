@@ -1,93 +1,144 @@
+// component/SignIn.js
+"use client";
+
+import { useState } from "react";
+import { signIn } from "next-auth/react";
 import { FaGithub, FaGoogle } from "react-icons/fa";
 
 export default function SignIn() {
+    const [formData, setFormData] = useState({
+        email: "",
+        password: ""
+    });
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
+
+    const handleGitHubSignIn = () => {
+        signIn("github", { callbackUrl: "/" });
+    };
+
+    const handleGoogleSignIn = () => {
+        signIn("google", { callbackUrl: "/" });
+    };
+
+    const handleInputChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
+        if (error) setError("");
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+        setError("");
+
+        try {
+            const result = await signIn("credentials", {
+                email: formData.email,
+                password: formData.password,
+                callbackUrl: "/",
+                redirect: false
+            });
+
+            if (result?.error) {
+                setError("Invalid email or password");
+            } else if (result?.ok) {
+                window.location.href = "/"; // Redirect to home
+            }
+        } catch (error) {
+            setError("Something went wrong. Please try again.");
+        } finally {
+            setLoading(false);
+        }
+    };
 
     return (
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background to-primary px-6">
+            <div className="bg-white dark:bg-card-bg p-8 rounded-lg shadow-lg w-full max-w-md">
+                <h2 className="text-2xl font-bold text-center text-gray-800 dark:text-white mb-6">
+                    Sign In to Your Account
+                </h2>
 
-        <div className="flex flex-col items-center justify-center w-full px-6 py-8 mx-auto bg-[url('/flash.png')] bg-cover bg-center">
+                {error && (
+                    <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                        {error}
+                    </div>
+                )}
 
-            <div className="backdrop-blur-xl bg-background/10 border border-foreground/20 rounded-2xl shadow-2xl w-full max-w-md">
-                <div className="p-8 space-y-6">
-                    <h1 className="text-2xl font-bold text-foreground">
-                        Sign in to your account
-                    </h1>
-                    <form className="space-y-4" action="#">
-                        <div>
-                            <label htmlFor="email" className="block mb-2 text-sm font-medium text-foreground">
-                                Your email
-                            </label>
-                            <input
-                                type="email"
-                                name="email"
-                                id="email"
-                                placeholder="name@mail.com"
-                                required
-                                className="bg-background/20 border border-foreground/30 text-foreground placeholder-foreground/70 rounded-lg focus:ring-foreground focus:border-foreground block w-full p-2.5"
-                            />
-                        </div>
-                        <div>
-                            <label htmlFor="password" className="block mb-2 text-sm font-medium text-foreground">
-                                Password
-                            </label>
-                            <input
-                                type="password"
-                                name="password"
-                                id="password"
-                                placeholder="••••••••"
-                                required
-                                className="bg-background/20 border border-foreground/30 text-foreground placeholder-foreground/70 rounded-lg focus:ring-foreground focus:border-foreground block w-full p-2.5"
-                            />
-                        </div>
-                        <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-2">
-                                <input
-                                    id="remember"
-                                    type="checkbox"
-                                    className="w-4 h-4 rounded border-foreground/30 bg-foreground/10 text-foreground focus:ring-foreground"
-                                    required
-                                />
-                                <label htmlFor="remember" className="text-sm text-foreground">
-                                    Remember me
-                                </label>
-                            </div>
-                            <a href="#" className="text-sm text-foreground hover:underline">
-                                Forgot password?
-                            </a>
-                        </div>
-                        <button
-                            type="submit"
-                            className="w-full bg-primary/30 hover:bg-secondary/50 text-foreground font-medium rounded-lg text-sm px-5 py-2.5 text-center transition duration-300"
-                        >
-                            Sign in
-                        </button>
+                <form onSubmit={handleSubmit} className="space-y-4 mb-6">
+                    <div>
+                        <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            Email
+                        </label>
+                        <input
+                            type="email"
+                            name="email"
+                            id="email"
+                            value={formData.email}
+                            onChange={handleInputChange}
+                            required
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                            placeholder="Enter your email"
+                        />
+                    </div>
 
-                        <button
-                            type="button"
-                            className="w-full bg-primary/30 hover:bg-secondary/50 text-foreground font-medium rounded-lg text-sm px-5 py-2.5 text-center transition duration-300"
-                        >
-                            <div className="flex justify-center items-center">
-                                <FaGithub className="w-5 h-5 me-3.5" />
-                                Sign in With Github</div>
+                    <div>
+                        <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            Password
+                        </label>
+                        <input
+                            type="password"
+                            name="password"
+                            id="password"
+                            value={formData.password}
+                            onChange={handleInputChange}
+                            required
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                            placeholder="Enter your password"
+                        />
+                    </div>
 
-                        </button>
+                    <button
+                        type="submit"
+                        disabled={loading}
+                        className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                    >
+                        {loading ? "Signing In..." : "Sign In"}
+                    </button>
+                </form>
 
-                        <button
-                            type="button"
-                            className="w-full bg-primary/30 hover:bg-secondary/50 text-foreground font-medium rounded-lg text-sm px-5 py-2.5 text-center transition duration-300"
-                        >
-                            <div className="flex justify-center items-center">
-                                <FaGoogle className="w-5 h-5 mr-3.5" />
-                                Sign in With Google</div>
+                <div className="flex items-center justify-center mb-4">
+                    <div className="border-t border-gray-300 flex-grow mr-3"></div>
+                    <span className="text-gray-500 text-sm">or</span>
+                    <div className="border-t border-gray-300 flex-grow ml-3"></div>
+                </div>
 
-                        </button>
+                <div className="space-y-3">
+                    <button
+                        onClick={handleGitHubSignIn}
+                        disabled={loading}
+                        className="w-full flex items-center justify-center px-4 py-3 border border-gray-300 rounded-md shadow-sm bg-white dark:bg-gray-800 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200 disabled:opacity-50"
+                    >
+                        <FaGithub className="w-5 h-5 mr-3" />
+                        Continue with GitHub
+                    </button>
 
-                        <p className="text-sm font-light text-foreground/80 text-center">
-                            Don’t have an account yet?{" "}
-                            <a href="#" className="font-medium text-foreground hover:underline">
-                                Sign up
-                            </a>
-                        </p>
-                    </form>
+                    <button
+                        onClick={handleGoogleSignIn}
+                        disabled
+                        className="w-full flex items-center justify-center px-4 py-3 border border-gray-300 rounded-md shadow-sm bg-gray-100 dark:bg-gray-700 text-sm font-medium text-gray-400 cursor-not-allowed"
+                    >
+                        <FaGoogle className="w-5 h-5 mr-3" />
+                        Continue with Google (Coming Soon)
+                    </button>
+                </div>
+
+                <div className="mt-6 text-center">
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                        By signing in, you agree to our Terms of Service and Privacy Policy
+                    </p>
                 </div>
             </div>
         </div>
