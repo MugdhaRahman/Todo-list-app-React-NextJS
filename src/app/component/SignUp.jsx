@@ -193,12 +193,12 @@ export default function SignUp() {
                         <button
                             type="button"
                             onClick={handleGoogleSignIn}
-                            disabled
-                            className="w-full bg-primary/30 hover:bg-secondary/50 text-foreground font-medium rounded-lg text-sm px-5 py-2.5 text-center transition duration-300 opacity-50 cursor-not-allowed"
+                            disabled={loading}
+                            className="w-full flex items-center justify-center px-4 py-3 border border-gray-300 rounded-md shadow-sm bg-white dark:bg-gray-800 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200 disabled:opacity-50"
                         >
                             <div className="flex justify-center items-center">
                                 <FaGoogle className="w-5 h-5 mr-3.5" />
-                                Continue With Google (Coming Soon)
+                                Continue With Google
                             </div>
                         </button>
                     </form>
