@@ -1,5 +1,5 @@
 import { Geist, Geist_Mono } from "next/font/google";
-import { ThemeProvider } from "../context/ThemeContext";
+import { ThemeProvider } from "@/context/ThemeContext";
 import SessionWrapper from "@/app/component/SessionWrapper";
 
 import "./globals.css";
