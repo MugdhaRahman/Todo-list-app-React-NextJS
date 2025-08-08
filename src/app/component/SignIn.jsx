@@ -21,42 +21,42 @@ export default function SignIn() {
         signIn("google", { callbackUrl: "/" });
     };
 
-    const handleInputChange = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value
-        });
-        if (error) setError("");
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setLoading(true);
-        setError("");
-
-        try {
-            const result = await signIn("credentials", {
-                email: formData.email,
-                password: formData.password,
-                callbackUrl: "/",
-                redirect: false
-            });
-
-            if (result?.error) {
-                setError("Invalid email or password");
-            } else if (result?.ok) {
-                window.location.href = "/"; // Redirect to home
-            }
-        } catch (error) {
-            setError("Something went wrong. Please try again.");
-        } finally {
-            setLoading(false);
-        }
-    };
+    // const handleInputChange = (e) => {
+    //     setFormData({
+    //         ...formData,
+    //         [e.target.name]: e.target.value
+    //     });
+    //     if (error) setError("");
+    // };
+    //
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
+    //     setLoading(true);
+    //     setError("");
+    //
+    //     try {
+    //         const result = await signIn("credentials", {
+    //             email: formData.email,
+    //             password: formData.password,
+    //             callbackUrl: "/",
+    //             redirect: false
+    //         });
+    //
+    //         if (result?.error) {
+    //             setError("Invalid email or password");
+    //         } else if (result?.ok) {
+    //             window.location.href = "/"; // Redirect to home
+    //         }
+    //     } catch (error) {
+    //         setError("Something went wrong. Please try again.");
+    //     } finally {
+    //         setLoading(false);
+    //     }
+    // };
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background to-primary px-6">
-            <div className="bg-white dark:bg-card-bg p-8 rounded-lg shadow-lg w-full max-w-md">
+            <div className="backdrop-blur-xl bg-background/10 border border-foreground/20 rounded-2xl shadow-2xl p-8 w-full max-w-md">
                 <h2 className="text-2xl font-bold text-center text-gray-800 dark:text-white mb-6">
                     Sign In to Your Account
                 </h2>
@@ -67,53 +67,53 @@ export default function SignIn() {
                     </div>
                 )}
 
-                <form onSubmit={handleSubmit} className="space-y-4 mb-6">
-                    <div>
-                        <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                            Email
-                        </label>
-                        <input
-                            type="email"
-                            name="email"
-                            id="email"
-                            value={formData.email}
-                            onChange={handleInputChange}
-                            required
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                            placeholder="Enter your email"
-                        />
-                    </div>
+                {/*<form onSubmit={handleSubmit} className="space-y-4 mb-6">*/}
+                {/*    <div>*/}
+                {/*        <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">*/}
+                {/*            Email*/}
+                {/*        </label>*/}
+                {/*        <input*/}
+                {/*            type="email"*/}
+                {/*            name="email"*/}
+                {/*            id="email"*/}
+                {/*            value={formData.email}*/}
+                {/*            onChange={handleInputChange}*/}
+                {/*            required*/}
+                {/*            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"*/}
+                {/*            placeholder="Enter your email"*/}
+                {/*        />*/}
+                {/*    </div>*/}
 
-                    <div>
-                        <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                            Password
-                        </label>
-                        <input
-                            type="password"
-                            name="password"
-                            id="password"
-                            value={formData.password}
-                            onChange={handleInputChange}
-                            required
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                            placeholder="Enter your password"
-                        />
-                    </div>
+                {/*    <div>*/}
+                {/*        <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">*/}
+                {/*            Password*/}
+                {/*        </label>*/}
+                {/*        <input*/}
+                {/*            type="password"*/}
+                {/*            name="password"*/}
+                {/*            id="password"*/}
+                {/*            value={formData.password}*/}
+                {/*            onChange={handleInputChange}*/}
+                {/*            required*/}
+                {/*            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"*/}
+                {/*            placeholder="Enter your password"*/}
+                {/*        />*/}
+                {/*    </div>*/}
 
-                    <button
-                        type="submit"
-                        disabled={loading}
-                        className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                    >
-                        {loading ? "Signing In..." : "Sign In"}
-                    </button>
-                </form>
+                {/*    <button*/}
+                {/*        type="submit"*/}
+                {/*        disabled={loading}*/}
+                {/*        className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"*/}
+                {/*    >*/}
+                {/*        {loading ? "Signing In..." : "Sign In"}*/}
+                {/*    </button>*/}
+                {/*</form>*/}
 
-                <div className="flex items-center justify-center mb-4">
-                    <div className="border-t border-gray-300 flex-grow mr-3"></div>
-                    <span className="text-gray-500 text-sm">or</span>
-                    <div className="border-t border-gray-300 flex-grow ml-3"></div>
-                </div>
+                {/*<div className="flex items-center justify-center mb-4">*/}
+                {/*    <div className="border-t border-gray-300 flex-grow mr-3"></div>*/}
+                {/*    <span className="text-gray-500 text-sm">or</span>*/}
+                {/*    <div className="border-t border-gray-300 flex-grow ml-3"></div>*/}
+                {/*</div>*/}
 
                 <div className="space-y-3">
                     <button
